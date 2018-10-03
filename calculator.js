@@ -27,6 +27,8 @@ $(function() {
       numHelper($(this).text());
     } else if ($(this).hasClass("percent")) {
       percentHelper();
+    } else if ($(this).hasClass("plus-minus")) {
+      plusMinusHelper();
     } else if ($(this).hasClass("operator")) {
       operatorHelper($(this).text());
     } else if ($(this).hasClass("equals")) {
@@ -50,6 +52,10 @@ function numHelper(num) {
 function percentHelper() {
   currentDisplay = 0.01 * currentDisplay;
   isNewNumber = true;
+}
+
+function plusMinusHelper() {
+  currentDisplay = -1 * currentDisplay;
 }
 
 function operatorHelper(opSelected) {
