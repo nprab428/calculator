@@ -45,6 +45,7 @@ function updateCurrentDisplay() {
 }
 
 function numHelper(num) {
+  $(".clear").text("C");
   currentDisplay = isNewNumber ? num : currentDisplay + num;
   isNewNumber = false;
 }
@@ -62,8 +63,9 @@ function operatorHelper(opSelected) {
   // if previous operation already saved off, perform it and update display
   tryPerformOperation();
 
-  $(".clear").text("C");
-  arg1 = parseInt(currentDisplay);
+  if (!isNewNumber) {
+    arg1 = parseInt(currentDisplay);
+  }
   operation = opSelected;
   isNewNumber = true;
 
@@ -81,7 +83,7 @@ function operatorHelper(opSelected) {
 }
 
 function tryPerformOperation() {
-  if (operation && arg1) {
+  if (operation && arg1 && !isNewNumber) {
     arg2 = parseInt(currentDisplay);
     currentDisplay =
       operation === "+"
@@ -104,12 +106,12 @@ function equalsHelper() {
 }
 
 function clearHelper() {
-  if ($(this).text() === "AC") {
+  if ($(".clear").text() === "AC") {
     arg1 = null;
     operation = null;
   }
 
   currentDisplay = 0;
-  $(this).text("AC");
+  $(".clear").text("AC");
   isNewNumber = true;
 }
