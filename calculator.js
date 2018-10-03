@@ -8,6 +8,8 @@ let operation; // saved off operation
 window.addEventListener("keydown", function(e) {
   if ((0 <= e.key && e.key <= 9) || e.key == ".") {
     numHelper(e.key);
+  } else if (e.key == "%") {
+    percentHelper();
   } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
     operatorHelper(e.key);
   } else if (e.key === "Enter" || e.key === "=") {
@@ -23,6 +25,8 @@ $(function() {
   $(".button").click(function() {
     if ($(this).hasClass("number")) {
       numHelper($(this).text());
+    } else if ($(this).hasClass("percent")) {
+      percentHelper();
     } else if ($(this).hasClass("operator")) {
       operatorHelper($(this).text());
     } else if ($(this).hasClass("equals")) {
@@ -41,6 +45,11 @@ function updateCurrentDisplay() {
 function numHelper(num) {
   currentDisplay = isNewNumber ? num : currentDisplay + num;
   isNewNumber = false;
+}
+
+function percentHelper() {
+  currentDisplay = 0.01 * currentDisplay;
+  isNewNumber = true;
 }
 
 function operatorHelper(opSelected) {
