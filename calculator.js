@@ -1,7 +1,7 @@
 // Global state variables
-let currentDisplay; // string of current display
+let currentDisplay = "0"; // string of current display, defaults to 0
+let arg1 = Number(currentDisplay); // value saved off to be used as first arg in arith. expression
 let isNewNumber = true; // bool to determine if digits should append to current display or not
-let arg1; // value saved off to be used as first arg in arith. expression
 let operation; // saved off operation
 
 // Logic for key presses
@@ -63,8 +63,9 @@ function operatorHelper(opSelected) {
   // if previous operation already saved off, perform it and update display
   tryPerformOperation();
 
+  // covers case when additional operator is used after an arg2
   if (!isNewNumber) {
-    arg1 = parseInt(currentDisplay);
+    arg1 = Number(currentDisplay);
   }
   operation = opSelected;
   isNewNumber = true;
@@ -83,8 +84,8 @@ function operatorHelper(opSelected) {
 }
 
 function tryPerformOperation() {
-  if (operation && arg1 && !isNewNumber) {
-    arg2 = parseInt(currentDisplay);
+  if (operation && !isNewNumber) {
+    arg2 = Number(currentDisplay);
     currentDisplay =
       operation === "+"
         ? arg1 + arg2
@@ -100,7 +101,7 @@ function equalsHelper() {
   tryPerformOperation();
 
   $(".active-operator").removeClass("active-operator");
-  arg1 = null;
+  arg1 = Number(currentDisplay);
   operation = null;
   isNewNumber = true;
 }
