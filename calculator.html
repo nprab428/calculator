@@ -1,48 +1,44 @@
 <html>
+  <head>
+    <title>Calculator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style type="text/css"></style>
+  </head>
 
-<head>
-	<title>Calculator</title>
-	<link href="style.css" rel="stylesheet" type="text/css">
-	<style type="text/css"></style>
-</head>
-
-<body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script src="calculator.js"></script>
-	<div class="container">
-		<section id="calculator-container">
-			<div id="display-container">
-				<p id="display-text">0</p>
-			</div>
-			<div class="quarters">
-				<div class="button clear">AC</div>
-				<div class="button number">7</div>
-				<div class="button number">4</div>
-				<div class="button number">1</div>
-				<div class="button number">0</div>
-			</div>
-			<div class="quarters">
-				<div class="button plus-minus">+/-</div>
-				<div class="button number">8</div>
-				<div class="button number">5</div>
-				<div class="button number">2</div>
-			</div>
-			<div class="quarters">
-				<div class="button percent">%</div>
-				<div class="button number">9</div>
-				<div class="button number">6</div>
-				<div class="button number">3</div>
-				<div class="button number">.</div>
-			</div>
-			<div class="quarters last">
-				<div class="button divide operator">/</div>
-				<div class="button multiply operator">X</div>
-				<div class="button minus operator">-</div>
-				<div class="button plus operator">+</div>
-				<div class="button equals">=</div>
-			</div>
-		</section>
-	</div>
-</body>
-
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="calculator.js"></script>
+    <div class="container">
+      <section id="calculator-container">
+        <div id="display-container"><p id="display-text">0</p></div>
+        <div class="quarters">
+          <div id="clear" class="button">AC</div>
+          <div id="number7" class="button">7</div>
+          <div id="number4" class="button">4</div>
+          <div id="number1" class="button">1</div>
+          <div id="number0" class="button">0</div>
+        </div>
+        <div class="quarters">
+          <div id="plus-minus" class="button">+/-</div>
+          <div id="number8" class="button">8</div>
+          <div id="number5" class="button">5</div>
+          <div id="number2" class="button">2</div>
+        </div>
+        <div class="quarters">
+          <div id="percent" class="button">%</div>
+          <div id="number9" class="button">9</div>
+          <div id="number6" class="button">6</div>
+          <div id="number3" class="button">3</div>
+          <div id="numberdot" class="button">.</div>
+        </div>
+        <div class="quarters last">
+          <div id="operator/" class="button">/</div>
+          <div id="operator*" class="button">X</div>
+          <div id="operator-" class="button">-</div>
+          <div id="operator+" class="button">+</div>
+          <div id="equals" class="button">=</div>
+        </div>
+      </section>
+    </div>
+  </body>
 </html>

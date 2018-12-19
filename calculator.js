@@ -4,39 +4,60 @@ let arg1 = Number(currentDisplay); // value saved off to be used as first arg in
 let isNewNumber = true; // bool to determine if digits should append to current display or not
 let operation; // saved off operation
 
-// Logic for key presses
-window.addEventListener("keydown", function(e) {
-  if ((0 <= e.key && e.key <= 9) || e.key == ".") {
-    numHelper(e.key);
-  } else if (e.key == "%") {
-    percentHelper();
-  } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
-    operatorHelper(e.key);
-  } else if (e.key === "Enter" || e.key === "=") {
-    equalsHelper();
-  } else if (e.key === "c") {
-    clearHelper();
-  }
-  updateCurrentDisplay();
-});
-
-// Logic for front-end clicks
 $(function() {
-  $(".button").click(function() {
-    if ($(this).hasClass("number")) {
-      numHelper($(this).text());
-    } else if ($(this).hasClass("percent")) {
+  // Logic for key presses
+  $(document).on("keydown", function(e) {
+    if (0 <= e.key && e.key <= 9) {
+      $(`#number${e.key}`).addClass("pressed");
+      numHelper(e.key);
+    } else if (e.key == ".") {
+      $("#numberdot").addClass("pressed");
+      numHelper(e.key);
+    } else if (e.key == "%") {
+      $("#percent").addClass("pressed");
       percentHelper();
-    } else if ($(this).hasClass("plus-minus")) {
-      plusMinusHelper();
-    } else if ($(this).hasClass("operator")) {
-      operatorHelper($(this).text());
-    } else if ($(this).hasClass("equals")) {
+    } else if (
+      e.key === "+" ||
+      e.key === "-" ||
+      e.key === "*" ||
+      e.key === "/"
+    ) {
+      $(`#operator\\${e.key}`).addClass("pressed");
+      operatorHelper(e.key);
+    } else if (e.key === "Enter" || e.key === "=") {
+      $("#equals").addClass("pressed");
       equalsHelper();
-    } else if ($(this).hasClass("clear")) {
+    } else if (e.key === "c") {
+      $("#clear").addClass("pressed");
       clearHelper();
     }
     updateCurrentDisplay();
+  });
+
+  // Logic for front-end clicks
+  $(".button").click(function() {
+    $(this).addClass("pressed");
+    if ($(this).is('[id^="number"]')) {
+      numHelper($(this).text());
+    } else if ($(this).is("#percent")) {
+      percentHelper();
+    } else if ($(this).is("#plus-minus")) {
+      plusMinusHelper();
+    } else if ($(this).is('[id^="operator"]')) {
+      operatorHelper($(this).text());
+    } else if ($(this).is("#equals")) {
+      equalsHelper();
+    } else if ($(this).is("#clear")) {
+      clearHelper();
+    }
+    updateCurrentDisplay();
+  });
+
+  // Remove class for all buttons after pressed transition
+  $(".button").each(function() {
+    $(this).on("transitionend", function() {
+      $(this).removeClass("pressed");
+    });
   });
 });
 
@@ -45,7 +66,7 @@ function updateCurrentDisplay() {
 }
 
 function numHelper(num) {
-  $(".clear").text("C");
+  $("#clear").text("C");
   currentDisplay = isNewNumber ? num : currentDisplay + num;
   isNewNumber = false;
 }
@@ -72,15 +93,15 @@ function operatorHelper(opSelected) {
 
   // Reassign active operator
   $(".active-operator").removeClass("active-operator");
-  let buttonClass =
+  let buttonId =
     opSelected === "+"
-      ? "plus"
+      ? "operator\\+"
       : opSelected === "-"
-        ? "minus"
-        : opSelected === "X" || opSelected === "*"
-          ? "multiply"
-          : "divide";
-  $(`.${buttonClass}`).addClass("active-operator");
+      ? "operator\\-"
+      : opSelected === "X" || opSelected === "*"
+      ? "operator\\*"
+      : "operator\\/";
+  $(`#${buttonId}`).addClass("active-operator");
 }
 
 function tryPerformOperation() {
@@ -90,10 +111,10 @@ function tryPerformOperation() {
       operation === "+"
         ? arg1 + arg2
         : operation === "-"
-          ? arg1 - arg2
-          : operation === "X" || operation === "*"
-            ? arg1 * arg2
-            : arg1 / arg2;
+        ? arg1 - arg2
+        : operation === "X" || operation === "*"
+        ? arg1 * arg2
+        : arg1 / arg2;
   }
 }
 
@@ -107,12 +128,12 @@ function equalsHelper() {
 }
 
 function clearHelper() {
-  if ($(".clear").text() === "AC") {
+  if ($("#clear").text() === "AC") {
     arg1 = null;
     operation = null;
   }
 
   currentDisplay = 0;
-  $(".clear").text("AC");
+  $("#clear").text("AC");
   isNewNumber = true;
 }
